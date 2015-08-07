@@ -11,16 +11,16 @@
 |
 */
 
-Route::get('/', array('uses' => 'HomeController@home', 'as' => 'home'));
+Route::get('/', array('uses' => 'HomeController@homeFunction', 'as' => 'home'));
 
 
 Route::group(array('before' => 'guest'), function(){
 	Route::get('/user/create', array('uses' => 'UserController@getCreate', 'as' => 'getCreate'));
-	Route::get('/user/login', 'UserController@getLogin');
+	Route::get('/user/login',  array('uses' => 'UserController@getLogin', 'as' => 'getLogin'));
 
 	Route::group(array('before' => 'csrf'), function(){
 
-		Route::post('user/create', array('uses' => 'UserController@postCreate', 'as' => 'postCreate'));
-		Route::post('user/login', 'UserController@postLogin');
+		Route::post('/user/create', array('uses' => 'UserController@postCreate', 'as' => 'postCreate'));
+		Route::post('/user/login',  array('uses' => 'UserController@postLogin',  'as' => 'postLogin'));
 	});
 });

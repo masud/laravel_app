@@ -28,13 +28,13 @@ class UserController extends BaseController{
 			
 			$user = new User();
 			$user->username = Input::get('username');
-			$user->password = Hass::make(Input::get('password'));
+			$user->password = Hash::make(Input::get('pass1'));
 
 			if($user){
-				return Rediect::route('home')->with('success', 'You registerd successfully, you can now login');
+				return Redirect::route('home')->with('success', 'You registerd successfully, you can now login');
 			}
 			else{
-				return Rediect::route('home')->with('fail', 'An error occured while createing the user, Please try again');
+				return Redirect::route('home')->with('fail', 'An error occured while createing the user, Please try again');
 			}
 		}
 
