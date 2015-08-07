@@ -9,7 +9,7 @@ class UserController extends BaseController{
 
 	// gets login view page
 	public function getLogin(){
-		return "LOgin page";	
+		return View::make('user.login');	
 	}
 
 	public function postCreate(){
@@ -40,8 +40,33 @@ class UserController extends BaseController{
 		}
 
 	}
-
+	// handles login form data
 	public function postLogin(){
+
+		$validator = Validator:: make(Input::all(), array(
+			'username' => 'required',
+			'pass1'	=> 'required'
+
+			));
+
+		if($validator->fails()){
+			return Redirect::route('getLogin')->withErrors($validator)->withInput();
+		}else{
+
+			$remember = (Input::has('remember')) ? true : false;
+
+			$auth =  Auth::attempt(array(
+				'username' => Input::get('username'),
+				'password' => Input::get('pass1')
+
+				), $remember);
+			if($auth){
+
+				return Redirect::intended('/');
+			}else{
+				return Redirect::route('getLogin')->with('fail', 'You are entered wrong password or username, Please try again!!');
+			}
+		}
 
 	}
 }
