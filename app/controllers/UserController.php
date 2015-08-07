@@ -9,7 +9,7 @@ class UserController extends BaseController{
 
 	// gets login view page
 	public function getLogin(){
-		return "LOgin page";	
+		return View::make('user.login');	
 	}
 
 	public function postCreate(){
