@@ -21,19 +21,21 @@
 			<div class="navbar-collapse collapse navbar-responsive-collapse">
 				<ul class="nav navbar-nav">
 					<li><a href="{{ URL::route('home') }}">Home</a></li>
-					<li><a href="{{ URL::route('forum-group') }}">Forum</a></li>
+					<li><a href="{{ URL::route('forum-home') }}">Forum</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					@if(!Auth::check())
 						<li><a href="{{ URL::route('getCreate') }}">Register</a></li>
-						<!-- <li><a href="{{ URL::route('getLogin') }}">Login</a></li> -->
+						<li><a href="{{ URL::route('getLogin') }}">Login</a></li>
+					@else
+						<li><a href="{{ URL::route('getLogout') }}">Logout</a></li>					
 					@endif
 				</ul>
 			</div>		
 		</div>		
 	</div>
 
-	@yield('content')
+	<div class="container">@yield('content')</div>
 	{{ HTML::script('js/bootstrap.min.js') }}
 </body>
 </html>
