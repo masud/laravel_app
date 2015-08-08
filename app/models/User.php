@@ -36,4 +36,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return 'Remember_token';
 	}
 
+	public function isAdmin(){
+		return ($this->isAdmin == 1);
+	}
+
 }
