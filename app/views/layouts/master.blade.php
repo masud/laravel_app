@@ -5,6 +5,7 @@
 	<meta charset="UTF-8">
 	<title>Laravel PHP Framework</title>
 	{{ HTML::style('css/bootstrap.min.css') }}
+	{{ HTML::style('css/style.css') }}
 	@show
 </head>
 <body>

@@ -24,12 +24,16 @@ Route::group(array('before' => 'guest'), function(){
 	
 	Route::get('/user/create', array('uses' => 'UserController@getCreate', 'as' => 'getCreate'));
 	Route::get('/user/login',  array('uses' => 'UserController@getLogin', 'as' => 'getLogin'));
-	Route::get('/user/logout',  array('uses' => 'UserController@getLogout', 'as' => 'getLogout'));
+	
 
 	Route::group(array('before' => 'csrf'), function(){
 
 		Route::post('/user/create', array('uses' => 'UserController@postCreate', 'as' => 'postCreate'));
 		Route::post('/user/login',  array('uses' => 'UserController@postLogin',  'as' => 'postLogin'));
-		Route::post('/user/logout',  array('uses' => 'UserController@postLogout',  'as' => 'postLogout'));
+		
 	});
+});
+
+Route::group(array('before' => 'auth'), function(){
+	Route::get('/user/logout',array('uses' => 'UserController@getLogout', 'as' => 'getLogout'));
 });

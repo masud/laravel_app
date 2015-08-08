@@ -68,6 +68,10 @@ class UserController extends BaseController{
 				return Redirect::route('getLogin')->with('fail', 'You are entered wrong password or username, Please try again!!');
 			}
 		}
+	}
 
+	public function getLogout(){
+		Auth::logout();
+		return Redirect::route('home');
 	}
 }
