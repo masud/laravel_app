@@ -1,5 +1,10 @@
 <?php
 
+use Whoops\Handler\PrettyPageHandler;
+
+$handler = new PrettyPageHandler;
+$handler->setEditor('sublime');
+
 /**
 * 
 */
@@ -45,5 +50,48 @@ class ForumController extends BaseController
 		}
 
 	}
+
+	public function deleteGroup($id){
+
+		$group = ForumGroup::find($id);
+		if($group == null){
+
+			return Redirect::route('forum-home')->with('fail', 'That group dosent exist.');
+		}
+
+		$categories = ForumCategory::where('group_id', $id);
+		$threads    = ForumThread::where('group_id', $id);
+		$comments   = ForumComment::where('group_id', $id);
+		
+
+		$delCa = true;
+		$delT  = true;
+		$delCo = true;
+
+		if($categories->count() > 0){
+
+			$delCa = $categories->delete();
+		}
+		if ($threads->count() > 0) {
+		
+			$delT = $threads->delete();
+		}
+		if ($comments->count() > 0) {
+
+			$delCo = $comments->delete();
+		}
+
+		if($delCa && $delT && $delCo && $group->delete()){
+
+			return Redirect::route('forum-home')->with('success', 'The group was deleted.');
+
+		}else{
+
+			return Redirect::route('forum-home')->with('fail', 'An error occured while deleting the group');
+		}
+
+
+	}
+		
 	
 }

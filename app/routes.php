@@ -1,5 +1,5 @@
 <?php
-
+  
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -14,13 +14,18 @@
 Route::get('/', array('uses' => 'HomeController@homeFunction', 'as' => 'home'));
 
 Route::group(array('prefix' => '/forum'), function(){
+	
 	Route::get('/', array('uses' => 'ForumController@index', 'as' => 'forum-home'));
 	Route::get('/category/{id}', array('uses' => 'ForumController@category', 'as' => 'forum-category'));
 	Route::get('/thread/{id}', array('uses'   => 'ForumController@thread',   'as' => 'forum-thread'));
 
-	Route::group(array('before' => 'auth'), function(){
+	Route::group(array('before' => 'admin'), function(){
+
+		Route::get('/group/{id}/delete', array('uses' => 'ForumController@deleteGroup', 'as' => 'forum-delete-group'));
+		
 
 		Route::group(array('before' => 'csrf'), function(){
+
 			Route:: post('/group', array('uses' => 'ForumController@storeGroup', 'as' => 'forum-store-group'));
 		});
 	});

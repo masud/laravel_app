@@ -1,3 +1,9 @@
+<?php
+use Whoops\Handler\PrettyPageHandler;
+
+$handler = new PrettyPageHandler;
+$handler->setEditor('sublime');?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
